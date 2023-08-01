@@ -2,25 +2,29 @@ package com.gregoryaxenov.service;
 
 import com.gregoryaxenov.dao.QuizDao;
 import com.gregoryaxenov.domain.Quiz;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
-import java.util.List;
 
+@ExtendWith(MockitoExtension.class)
 class QuizServiceSimpleTest {
-    private final QuizDao quizDao = Mockito.mock(QuizDao.class);
+    @Mock
+    private QuizDao quizDao;
 
-    private final QuizReader quizReader = Mockito.mock(QuizReader.class);
+    @InjectMocks
+    private QuizServiceSimple quizServiceSimple;
 
     @Test
     void loadTest() {
-        List<Quiz> quizzes = Collections.singletonList(new Quiz("question1", "answer1"));
-        Mockito.when(quizReader.read()).thenReturn(quizzes);
+        Mockito.when(quizDao.findAll()).thenReturn(Collections.singletonList(new Quiz("question1", "answer1")));
 
-        QuizService quizService = new QuizServiceSimple(quizDao, quizReader);
+        quizServiceSimple.start();
 
-        Assertions.assertEquals(quizzes, quizService.load());
+        Mockito.verify(quizDao).findAll();
     }
 }

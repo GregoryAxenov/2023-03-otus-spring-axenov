@@ -8,7 +8,6 @@ public class Main {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-context.xml");
         QuizService quizService = applicationContext.getBean(QuizService.class);
-        quizService.load();
-        quizService.printAnswersToConsole();
+        quizService.start();
     }
 }
