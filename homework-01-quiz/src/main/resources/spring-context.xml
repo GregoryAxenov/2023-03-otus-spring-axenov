@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="quizDao" class="com.gregoryaxenov.dao.QuizDaoSimple">
+        <constructor-arg index="0" value="quizzes.csv"/>
+    </bean>
+
+    <bean id="quizService" class="com.gregoryaxenov.service.QuizServiceSimple">
+        <constructor-arg index="0" ref="quizDao"/>
+    </bean>
+
+</beans>
